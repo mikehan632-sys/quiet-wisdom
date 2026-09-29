@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Quiet Wisdom · Reader Feedback</title>
+<meta name="description" content="Help us judge six lines of classical Chinese wisdom. Five minutes, no account.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Serif+TC:wght@400;600&display=swap">
+<style>
+:root{
+ --paper:#F4EDDD;--card:#FBF7EC;--sunken:#EBE2CD;
+ --ink:#231E17;--ink-soft:#4F4739;--ink-faint:#746A56;
+ --amber:#8A6428;--cinnabar:#A6402F;--jade:#3D6A4C;
+ --rule:#DCCFB0;--rule-strong:#C4B48A;--seal:#B23A2A;
+ --serif:"Newsreader",Georgia,"Times New Roman",serif;
+ --hant:"Noto Serif TC","PingFang TC","Hiragino Mincho ProN","Songti TC","Microsoft JhengHei",serif;
+ --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+ --shadow:0 1px 0 rgba(35,30,23,.04),0 8px 24px -14px rgba(35,30,23,.25);}
+@media (prefers-color-scheme:dark){:root{
+ --paper:#15130E;--card:#201C16;--sunken:#12100B;
+ --ink:#EFE7D6;--ink-soft:#C3B9A3;--ink-faint:#9C927C;
+ --amber:#D2AA66;--cinnabar:#E8705F;--jade:#8DB396;
+ --rule:#332D22;--rule-strong:#4A4132;--seal:#C9483A;--shadow:none;}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.6;
+ padding:0 max(16px,env(safe-area-inset-right)) 88px max(16px,env(safe-area-inset-left))}
+.wrap{max-width:740px;margin:0 auto}
+:lang(zh-Hant){font-family:var(--hant)}
+h1,h2,h3{margin:0;font-weight:600;line-height:1.2;text-wrap:balance}
+p{margin:0 0 12px}
+:focus-visible{outline:2px solid var(--cinnabar);outline-offset:2px}
+[tabindex="-1"]:focus{outline:none}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--rule);
+ margin:0 -16px;padding:10px 16px 0}
+.top-in{max-width:740px;margin:0 auto;display:flex;align-items:center;gap:12px;padding-bottom:10px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.01em}
+.seal{display:inline-grid;place-items:center;width:26px;height:26px;background:var(--seal);color:#FBF3E2;border-radius:3px;
+ font-family:var(--hant);font-size:15px;font-weight:600;line-height:1;transform:rotate(-3deg)}
+.stepno{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.meter{height:2px;background:var(--rule);margin:0 -16px}
+.meter i{display:block;height:100%;width:0;background:var(--amber);transition:width .3s ease}
+
+/* screens */
+.screen{display:none;padding-top:34px;animation:rise .35s ease both}
+.screen.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}.meter i{transition:none}}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin:0 0 12px}
+h1{font-size:clamp(32px,7vw,46px);letter-spacing:-.01em;margin-bottom:14px}
+h1 .zh{display:block;font-size:.5em;letter-spacing:.3em;color:var(--ink-faint);font-weight:400;margin-top:8px}
+.lede{font-size:20px;color:var(--ink-soft);max-width:34em}
+.zhnote{font-size:16px;color:var(--ink-faint);margin-top:-2px}
+.promise{list-style:none;padding:0;margin:22px 0;display:grid;gap:10px}
+.promise li{padding-left:28px;position:relative;color:var(--ink-soft);font-size:17px}
+.promise li::before{content:"";position:absolute;left:2px;top:.55em;width:12px;height:2px;background:var(--amber)}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:18px 20px;box-shadow:var(--shadow);margin:20px 0}
+.panel h3{font-size:16px;margin-bottom:4px}
+.panel .hint{font-size:15px;color:var(--ink-faint);margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font:inherit;font-size:16px;background:transparent;color:var(--ink-soft);border:1px solid var(--rule-strong);border-radius:99px;
+ padding:9px 16px;min-height:44px;cursor:pointer}
+.opt[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* line screen */
+.lineblock{text-align:center;padding:10px 0 26px;border-bottom:1px solid var(--rule);margin-bottom:6px}
+.wl{font-size:clamp(34px,9vw,54px);font-weight:600;line-height:1.28;letter-spacing:.06em;margin:6px 0 6px}
+.py{font-family:var(--mono);font-size:13px;letter-spacing:.05em;color:var(--ink-faint);margin:0 0 10px}
+.full{font-size:16px;color:var(--ink-soft);margin:0 0 6px}
+.src{font-size:14px;color:var(--ink-faint)}
+.src :lang(zh-Hant){color:var(--amber)}
+.slot{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:18px 20px 16px;margin-top:16px;box-shadow:var(--shadow);border-left:4px solid var(--rule-strong)}
+.slot.g-love{border-left-color:var(--jade)}.slot.g-ok{border-left-color:var(--amber)}.slot.g-off{border-left-color:var(--cinnabar)}
+.slot h3{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:3px}
+.ask{font-size:15px;font-style:italic;color:var(--ink-faint);margin-bottom:12px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.cols p{margin:0 0 10px}
+.cols .zh{font-size:17px;line-height:1.85;color:var(--ink-soft)}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-faint);display:block;margin-bottom:2px}
+.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.g{font:inherit;font-size:16px;display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;color:var(--ink-soft);
+ border:1.5px solid var(--rule-strong);border-radius:4px;padding:10px 6px;min-height:48px;cursor:pointer;transition:background .12s,color .12s}
+.g svg{width:16px;height:16px;flex:none}
+.g:hover{background:var(--sunken)}
+.g[aria-pressed="true"]{color:#fff;border-color:transparent}
+.g.love[aria-pressed="true"]{background:var(--jade)}
+.g.ok[aria-pressed="true"]{background:var(--amber)}
+.g.off[aria-pressed="true"]{background:var(--cinnabar)}
+@media (prefers-color-scheme:dark){.g[aria-pressed="true"]{color:#15130E}}
+.why{margin-top:12px}
+.why[hidden]{display:none}
+.why p{font-size:14px;color:var(--ink-faint);margin-bottom:7px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:14px;background:transparent;color:var(--ink-soft);border:1px solid var(--rule-strong);border-radius:99px;
+ padding:6px 12px;min-height:36px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--rule-strong);border-radius:4px;
+ padding:12px 14px;min-height:96px;resize:vertical}
+textarea::placeholder{color:var(--ink-faint)}
+.note{margin-top:18px}
+.note label,.q label.lab{display:block;font-size:15px;color:var(--ink-faint);margin-bottom:6px}
+
+/* nav */
+.nav{display:flex;gap:10px;margin-top:30px;align-items:center}
+.btn{font:inherit;font-size:17px;font-weight:500;background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:13px 24px;min-height:50px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink-soft);border:1.5px solid var(--rule-strong)}
+.btn.big{width:100%}
+.btn:hover{filter:brightness(1.12)}
+.nav .sp{flex:1}
+.count{font-size:14px;color:var(--ink-faint)}
+
+/* finale */
+.picks{display:grid;gap:8px}
+.pick{font:inherit;text-align:left;display:flex;gap:12px;align-items:center;background:var(--card);border:1.5px solid var(--rule-strong);
+ border-radius:4px;padding:12px 16px;min-height:52px;cursor:pointer;color:var(--ink)}
+.pick[aria-pressed="true"]{border-color:var(--jade);box-shadow:inset 0 0 0 1.5px var(--jade)}
+.pick .box{width:20px;height:20px;border:1.5px solid var(--rule-strong);border-radius:3px;flex:none;display:grid;place-items:center}
+.pick[aria-pressed="true"] .box{background:var(--jade);border-color:var(--jade);color:#fff}
+.pick .box svg{width:13px;height:13px;opacity:0}
+.pick[aria-pressed="true"] .box svg{opacity:1}
+.pick .t{font-size:20px;letter-spacing:.04em}
+.send{display:grid;gap:10px;margin-top:8px}
+.fine{font-size:14px;color:var(--ink-faint)}
+.done{display:none;text-align:center;padding:30px 20px}
+.done.on{display:block}
+.done .seal{width:44px;height:44px;font-size:24px;margin-bottom:12px}
+details{margin-top:14px;font-size:15px;color:var(--ink-faint)}
+summary{cursor:pointer}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--sunken);border:1px solid var(--rule);border-radius:4px;padding:12px;font:12.5px/1.5 var(--mono);color:var(--ink-soft);max-height:260px;overflow:auto}
+
+@media (max-width:620px){
+ body{font-size:17px}
+ .cols{grid-template-columns:1fr}.cols .zh{padding-top:8px;border-top:1px dashed var(--rule)}
+ .slot{padding:16px 16px 14px}
+ .g{font-size:15px;padding:10px 2px}
+}
+</style>
+</head>
+<body>
+<div class="top"><div class="top-in"><div class="brand"><span class="seal" lang="zh-Hant" aria-hidden="true">靜</span>Quiet Wisdom</div><span class="stepno" id="stepno"></span></div>
+ <div class="meter" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" id="pbar"><i id="meter"></i></div></div>
+<div class="wrap">
+ <main id="main"></main>
+ <noscript><p class="panel">This page needs JavaScript to record your answers. Sorry — please turn it on and reload.</p></noscript>
+</div>
+
+<script>
+const LINES = [{"n": 22, "wl": "逝者如斯夫，不捨晝夜", "py": "shì zhě rú sī fú, bù shě zhòu yè", "full": "", "src": "《論語·子罕》", "srce": "Analects, Book 9", "tr": ["Everything passes like this river — never stopping, day or night.", "一切都像這流水，日夜不停地過去。"], "or": ["Confucius is standing by a river, and this is all he says. Readers have argued about it for two thousand years. Is it grief — everything I love is being carried away? Or is it encouragement — the river never stops, so neither should you? The text doesn’t settle it, and that may be the point. Standing at moving water, both feelings arrive at once.", "孔子站在河邊，只說了這一句。兩千年來，讀的人一直在爭：這是悲傷嗎——我所珍惜的一切都在被水帶走？還是勉勵——河水從不停歇，你也別停？原文沒有給答案，也許這正是它的好處：站在流水邊上，這兩種心情本來就是一起來的。"], "ex": ["You’re clearing out a parent’s flat and you find their handwriting on a shopping list. Nothing important — milk, batteries. And it undoes you, because it’s so ordinary and so gone. Later that evening your own child asks you to help with homework, and you sit down, and you’re very much still here. Both things are true in the same day.", "你在整理父母的舊屋，翻到一張他們手寫的購物單。上面沒什麼要緊的——牛奶、電池。可你一下就繃不住了，因為它那麼平常，又那麼已經過去了。當天晚上，你自己的孩子叫你幫忙看作業，你坐下來——你還很實在地在這裡。同一天裡，兩件事都是真的。"], "fy": ["You can’t hold the water still, and grieving that is honest. But the same current that took something is carrying you now. Let today count as part of the river, not as time spent waiting for it to stop.", "水停不住，為此難過是誠實的。但帶走一些東西的，也正是此刻託著你的那道水流。讓今天算作這條河的一部分，而不是等它停下來的時間。"]}, {"n": 3, "wl": "柳暗花明又一村", "py": "liǔ àn huā míng yòu yī cūn", "full": "山重水複疑無路，柳暗花明又一村", "src": "陸游《遊山西村》", "srce": "Lu You, “Visiting a Village West of the Mountains”", "tr": ["Just when it looks like a dead end, a way often opens.", "看似走到盡頭，往往又有轉機。"], "or": ["Lu You, a poet writing in China about 850 years ago, put this in a poem after he lost his government post. He was walking in the hills near his village, stuck in his life as much as on the trail. The mountains and streams close in until there seems to be no way through. Then the path bends, and past the willows and flowers, a village appears. He wasn’t promising anything. He was writing down what he found after he’d stopped expecting it.", "陸游寫這句時剛被罷官，正走在家鄉的山間——不只是路走不通，是人生走不通。他寫登山時山水重重、彷彿無路，忽然路一轉，柳綠花明處，出現了一座村莊。他沒有承諾什麼，只是記下：當他不再指望時，竟真的遇見了。"], "ex": ["You apply to twenty jobs and hear nothing. You’re ready to give up. Then a friend mentions an opening that isn’t even posted yet, makes one introduction, and three weeks later you’re hired. The road didn’t end. It just bent somewhere you couldn’t see from where you were standing.", "你投了二十份簡歷，杳無音訊，幾乎想放棄。這時一個朋友提到一個還沒公開的職位，幫你引薦了一下，三週後你入職了。路沒有斷，只是拐了個彎——那個彎，你站在原地時看不見。"], "fy": ["“There’s no way out” is a feeling, not always a fact. You don’t need to see the whole path. Just get to the next bend.", "「沒有出路」是一種感受，未必是事實。你不需要看見整條路，只要走到下一個彎。"]}, {"n": 10, "wl": "天生我材必有用", "py": "tiān shēng wǒ cái bì yǒu yòng", "full": "", "src": "李白《將進酒》", "srce": "Li Bai, “Bring In the Wine”", "tr": ["You were made for something.", "天生了你，就必有你的用處。"], "or": ["Li Bai, the great poet of the Tang dynasty — China’s golden age, 1,300 years ago — wrote this while drinking with friends at a low point, after losing favor at court. Instead of sinking, he half-shouts it: Heaven made me, so I must be good for something. It isn’t quiet wisdom. It’s a warm-blooded, defiant refusal to believe he’s worthless — written by a man who felt cast aside.", "唐代大詩人李白，在與友人飲酒時寫下這句，當時他正失意——被朝廷冷落。他沒有沉下去，而是近乎吶喊：上天既然生了我，就必有我的用處。這不是安靜的道理，而是一種倔強、熱血的拒絕——拒絕相信自己一無是處。寫它的人，正覺得自己被丟在一邊。"], "ex": ["You get rejected — from a school, a job, a person. A voice inside says, “maybe I’m just not good enough.” But one closed door doesn’t tell you what you’re worth. It only tells you that door wasn’t yours.", "你被拒絕了——一所學校、一份工作、一個人。心裡有個聲音說：「也許我就是不夠好。」李白這句，正是那個聲音需要的回答：被一扇門拒之門外，不代表你沒有用，只代表那不是你的門。"], "fy": ["On a day you feel worthless, don’t trust that feeling as fact. Being unused right now is not the same as being useless. Your door may just not be this one.", "在你覺得自己毫無價值的那天，別把那種感覺當成事實。此刻沒被用上，不等於沒有用。你的那扇門，也許只是——不是這一扇。"]}, {"n": 66, "wl": "哀而不傷", "py": "āi ér bù shāng", "full": "子曰：《關雎》，樂而不淫，哀而不傷", "src": "《論語·八佾》", "srce": "Analects, Book 3", "tr": ["Grieve. Just do not let it wreck you.", "該悲傷就悲傷，但不必把自己毀掉。"], "or": ["Confucius said this about a poem — the first one in the Book of Songs, an anthology of 305 folk songs and court pieces that was already old in his lifetime. He was not writing a review. He was describing what a feeling looks like once it has been properly housed: joy in it without excess, sorrow in it without damage. The original uses two different words here, one for the sorrow and one for being wrecked by it, and that distinction is the whole point. He is telling you the first one was never the problem.", "孔子這句話是評一首詩——《詩經》的第一首。《詩經》收了三百零五篇歌謠與樂章，在孔子的年代就已經很古老了。他不是在寫樂評。他是在說：一種情感被安頓好之後，該是什麼樣子——有歡喜而不過分，有悲傷而不傷身。這一句裡的「哀」和「傷」是兩個不同的字，而這個分別正是全部的重點：一個是那份感覺，一個是被那份感覺擊垮。他在告訴你，前一個從來不是問題。"], "ex": ["Six weeks after the funeral, you cry in the car outside the supermarket for about four minutes, then dry your face, go in, and buy the milk. Anyone watching would think you were falling apart. You are not. You are doing both things — the crying and the milk — and that is roughly what the next few months are going to look like.", "葬禮過去六個星期，你在超市門口的車裡哭了大概四分鐘，然後擦乾臉，進去買了牛奶。要是有人看見，會以為你快撐不住了。你沒有。你在同時做兩件事——哭，和買牛奶——接下來的幾個月，大概就是這個樣子。"], "fy": ["Nobody is asking you to grieve less. Only to keep the grief from eating the parts of you that still work — sleep, food, the people who are still here. Feel all of it. Keep eating.", "沒有人要求你少難過一點。只是別讓這份難過，把你身上還運轉著的部分也吃掉——睡眠、吃飯、還在你身邊的那些人。該難過就難過，飯還是要吃。"]}, {"n": 14, "wl": "一年之計在於春", "py": "yī nián zhī jì zài yú chūn", "full": "", "src": "節氣·立春 · 《增廣賢文》", "srce": "Expanded Sayings of Worthies, an anonymous Ming–Qing collection; the saying is older", "tr": ["When everything begins again, so can you.", "萬物新生的時節，也是重新開始的好時機。"], "or": ["Start of Spring opens the year in the old Chinese farming calendar. The Zengguang Xianwen, a book of proverbs Chinese children once copied out by hand, says the whole year’s plan is set in spring — beginnings carry weight. The season itself is an invitation: the ground thaws, and things that looked dead start to move.", "立春，揭開一年的循環。舊時啟蒙讀物《增廣賢文》說：「一年之計在於春」——開始，是有分量的。這個季節本身就是一句邀請：土地解凍，看似枯死的，又開始萌動。"], "ex": ["After a long stuck stretch, you make one small fresh start — a new habit, a new plan, a first message. You waited for the perfect moment and it never came. Spring says you don’t need perfect. You need a beginning.", "在長久的停滯之後，你做了一個小小的新開始——一個新習慣、一個新計劃、一條主動發出的訊息。你一直在等一個完美的時機，它從沒來過。立春告訴你：你不需要完美，你需要一個開始。"], "fy": ["Fresh starts aren’t only for New Year’s Day. Any turning of the season — any morning, really — is permission to begin again. Plant one small thing today.", "重新開始，不只屬於大年初一。任何一個季節的轉彎——其實，任何一個清晨——都是重新出發的許可。今天，就種下一件小事。"]}, {"n": 42, "wl": "莫愁前路無知己，天下誰人不識君", "py": "mò chóu qián lù wú zhī jǐ, tiān xià shuí rén bù shí jūn", "full": "", "src": "高適《別董大》其一", "srce": "Gao Shi, “Parting from Dong Da,” No. 1", "tr": ["Don’t worry that nobody out there will understand you. You’re not walking into a world of strangers.", "別擔心往後沒人懂你——這世上，哪兒會沒人認得你呢。"], "or": ["The Tang-dynasty poet Gao Shi wrote this in 747, nearly 1,300 years ago, while seeing off Dong Da, a musician who had lost his patron and was setting out with nothing. Gao Shi wasn’t doing any better — in the companion poem he admits he couldn’t even cover the wine. Two men whose luck had run out, standing in yellow dust and falling snow, and one of them says: don’t worry, there are people on the road ahead who will know you. He had no evidence for it. He said it anyway.", "高適寫這首詩，是在送別董大——一位失去了靠山、身無長物就要上路的琴師。高適自己那時也窮得叮噹響，同題第二首裡他直說連酒錢都拿不出。兩個失意的人站在黃沙與落雪裡，其中一個開口說：別擔心，往後的路上會有人懂你。他沒有任何證據。他還是說了。"], "ex": ["Your friend’s project just died. You’re not doing much better. You meet anyway, and halfway through you hear yourself saying the thing you don’t fully believe about yourself — that they’re good, that this isn’t the end, that people will find them. And about them you mean it completely. That’s usually how it gets said: by someone who can’t say it about themselves yet.", "你朋友的專案剛黃了。你自己也沒好到哪兒去。你們還是見了面，說著說著，你聽見自己講出了一句你對自己都還不太信的話——他很好，這不是終點，會有人找到他的。而說到他的時候，你是百分之百當真的。這句話通常就是這麼被說出來的：由一個還沒法對自己說這話的人說出來。"], "fy": ["If you’re the one leaving in the snow, someone saying this to you isn’t flattery, it’s a rope — take it. If you’re the one staying, say it out loud to them today. You don’t need evidence to be right.", "如果你是那個在雪裡要上路的人：有人對你說這句話，不是恭維，是一根繩子。接住。如果你是留下的那個：今天就把這句話對他說出口。你不需要證據，也能說對。"]}];
+const TO = "mikehan632@gmail.com";
+const KEY = "qw-public-feedback-v1";
+
+const SLOTS = [
+ ["line","The line","Would you want to see this on your phone one morning?"],
+ ["tr","The meaning","Does it say what the line means, in words a person would actually say?"],
+ ["or","Where it comes from","Is the story interesting, and easy to follow?"],
+ ["ex","A modern scene","Does the scene feel like real life?"],
+ ["fy","For you","Does it help you — or does it lecture you?"]];
+const GRADES = [
+ ["love","Love it",'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13.5S2 10 2 5.8A3.2 3.2 0 0 1 8 4a3.2 3.2 0 0 1 6 1.8C14 10 8 13.5 8 13.5z"/></svg>'],
+ ["ok","It’s fine",'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10"/></svg>'],
+ ["off","Doesn’t work",'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>']];
+const HALF = ["English reads better","中文 reads better"];
+const CHIPS = {
+ love:["Feels natural","Clear","Vivid","Just the right length","Warm","Moves me","Fresh","Sounds like a real person"],
+ bad:["Awkward wording","Hard to follow","Too long","Too preachy","Like a fortune cookie","Too cold or dry","Too generic","Promises too much","Not believable","Doesn’t match the Chinese","Chinese sounds translated"],
+ lineLove:["Beautiful","I already know it","I’d screenshot it","Fits a widget"],
+ lineBad:["Too obscure","Too clichéd","Too long for a widget","Too heavy","Needs explaining"]};
+const chipsFor = (k,g) => k==="line" ? (g==="love"?CHIPS.lineLove:CHIPS.lineBad) : (g==="love"?CHIPS.love:CHIPS.bad).concat(HALF);
+
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $ = (s,r=document) => r.querySelector(s);
+const $$ = (s,r=document) => [...r.querySelectorAll(s)];
+
+let S = {step:0, about:{}, a:{}, pick:[], extra:""};
+try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.a) S = Object.assign(S, v); } catch(e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} };
+const ans = n => S.a[n] || (S.a[n] = {g:{}, t:{}, note:""});
+const TOTAL = LINES.length + 2;           // intro + lines + finale
+
+/* ---------- render ---------- */
+const CHECK = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5l3 3 6-7"/></svg>';
+
+function intro(){
+ const opt = (grp,v,l) => `<button class="opt" data-grp="${grp}" data-v="${v}" aria-pressed="${S.about[grp]===v}">${l}</button>`;
+ return `<section class="screen" data-i="0" aria-labelledby="h0">
+  <p class="eyebrow">Reader feedback · about 5 minutes</p>
+  <h1 id="h0" tabindex="-1">Help us get the words right<span class="zh" lang="zh-Hant">靜悟</span></h1>
+  <p class="lede">Quiet Wisdom is an iPhone widget that shows one line of classical Chinese wisdom a day — with what it means, where it comes from, a modern scene, and one small thing to take away.</p>
+  <p class="zhnote" lang="zh-Hant">我們正在寫這些文字，需要誠實的讀者。沒有標準答案——請坦率地說。</p>
+  <ul class="promise">
+   <li>You’ll see <b>six lines</b>. Rate each part of each one.</li>
+   <li>Some of these are drafts we’re still unsure about. <b>Bluntness helps us more than kindness.</b></li>
+   <li>No account. Nothing is sent until you press send at the end, and even then it goes only to our email, from your own email app.</li>
+  </ul>
+  <div class="panel"><h3>Two quick questions <span class="fine">(optional)</span></h3>
+   <p class="hint">How do you read Chinese?</p>
+   <div class="opts">${opt("reads","native","Comfortably")}${opt("reads","some","A bit — I get the gist")}${opt("reads","little","Barely or not at all")}</div>
+   <p class="hint" style="margin-top:14px">Which script do you usually read?</p>
+   <div class="opts">${opt("script","trad","Traditional 繁體")}${opt("script","simp","Simplified 简体")}${opt("script","both","Both")}</div></div>
+  <div class="nav"><span class="sp"></span><button class="btn" data-next>Start</button></div></section>`;
+}
+
+function lineScreen(d,i){
+ const slots = SLOTS.map(([k,label,ask]) => {
+  const body = k==="line" ? "" : `<div class="cols"><p><span class="tag">ENGLISH</span>${esc(d[k][0])}</p><p class="zh" lang="zh-Hant"><span class="tag" lang="en">中文 · 繁體</span>${esc(d[k][1])}</p></div>`;
+  return `<section class="slot" data-k="${k}"><h3>${label}</h3><p class="ask">${ask}</p>${body}
+   <div class="grades" role="group" aria-label="Rate: ${label}">${GRADES.map(([g,l,ic])=>`<button class="g ${g}" data-g="${g}" aria-pressed="false">${ic}${l}</button>`).join("")}</div>
+   <div class="why" hidden><p class="whyq"></p><div class="chips"></div></div></section>`;
+ }).join("");
+ return `<section class="screen" data-i="${i}" data-n="${d.n}" aria-labelledby="h${i}">
+  <div class="lineblock"><p class="eyebrow">Line ${i} of ${LINES.length}</p>
+   <h2 class="wl" id="h${i}" tabindex="-1" lang="zh-Hant">${esc(d.wl)}</h2><p class="py">${esc(d.py)}</p>
+   ${d.full && d.full!==d.wl ? `<p class="full" lang="zh-Hant">${esc(d.full)}</p>`:""}
+   <p class="src"><span lang="zh-Hant">${esc(d.src)}</span> · ${esc(d.srce)}</p></div>
+  ${slots}
+  <div class="note"><label for="nt${i}">Anything else about this line? (optional)</label><textarea id="nt${i}" placeholder="What would you change?"></textarea></div>
+  <div class="nav"><button class="btn ghost" data-back>Back</button><span class="sp"></span><span class="count"></span><button class="btn" data-next>${i===LINES.length?"Almost done":"Next line"}</button></div></section>`;
+}
+
+function finale(i){
+ return `<section class="screen" data-i="${i}" aria-labelledby="h${i}">
+  <div id="form"><p class="eyebrow">Last step</p><h2 id="h${i}" tabindex="-1" style="font-size:clamp(28px,6vw,38px);margin-bottom:14px">Two last questions, then send</h2>
+  <div class="panel"><h3>Which would you send to a friend?</h3><p class="hint">Pick any — or none.</p>
+   <div class="picks">${LINES.map(d=>`<button class="pick" data-pick="${d.n}" aria-pressed="false"><span class="box">${CHECK}</span><span class="t" lang="zh-Hant">${esc(d.wl)}</span></button>`).join("")}</div></div>
+  <div class="q"><label class="lab" for="extra">Anything else you want us to know?</label><textarea id="extra" placeholder="What would make you keep using an app like this — or delete it?"></textarea></div>
+  <div class="send" style="margin-top:22px">
+   <button class="btn big" id="mail">Email my answers to us</button>
+   <button class="btn ghost big" id="copy">Copy my answers instead</button>
+   <p class="fine" id="lenwarn" hidden>Your answers are long. If your email app cuts them off, use “Copy” and paste them into an email to <b>${TO}</b>.</p>
+   <p class="fine">“Email” opens <b>your own email app</b> with your answers already typed in, addressed to <b>${TO}</b>. Nothing leaves your device until you press send there. This page runs no tracking and stores nothing on any server.</p></div>
+  <details><summary>See exactly what will be sent</summary><pre id="preview"></pre></details>
+  <div class="nav"><button class="btn ghost" data-back>Back</button></div></div>
+  <div class="done panel" id="done"><span class="seal" lang="zh-Hant">謝</span><h2 style="font-size:28px;margin-bottom:8px">Thank you.</h2>
+   <p class="lede" style="margin:0 auto">If your email app opened, just press send. If nothing opened, your answers are copied — paste them into an email to <b>${TO}</b>.</p>
+   <p class="fine" lang="zh-Hant">感謝你的時間與坦率。</p></div></section>`;
+}
+
+/* ---------- state → DOM ---------- */
+function paintLine(el){
+ const e = ans(el.dataset.n); let got = 0;
+ $$(".slot",el).forEach(s => {
+  const k = s.dataset.k, g = e.g[k] || ""; if (g) got++;
+  s.className = "slot" + (g ? " g-"+g : "");
+  $$(".g",s).forEach(b => b.setAttribute("aria-pressed", b.dataset.g===g));
+  const why = $(".why",s); why.hidden = !g;
+  if (g) { $(".whyq",s).textContent = g==="love" ? "What worked? (tap any)" : "What’s off? (tap any)";
+   const on = e.t[k] || [];
+   $(".chips",s).innerHTML = chipsFor(k,g).map(c=>`<button class="chip" aria-pressed="${on.includes(c)}">${esc(c)}</button>`).join(""); }
+ });
+ $(".count",el).textContent = got+" of "+SLOTS.length+" rated";
+ const ta = $("textarea",el); if (document.activeElement!==ta) ta.value = e.note || "";
+}
+
+function show(i, focus=true){
+ S.step = i; save();
+ $$(".screen").forEach(s => s.classList.toggle("on", +s.dataset.i===i));
+ $("#stepno").textContent = i===0 ? "" : (i<=LINES.length ? "Line "+i+" / "+LINES.length : "Finish");
+ const pct = 100*i/(TOTAL-1); $("#meter").style.width = pct+"%"; $("#pbar").setAttribute("aria-valuenow", Math.round(pct));
+ if (i===TOTAL-1) refreshSend();
+ if (focus) { scrollTo({top:0,behavior:"instant"}); const h = $(`.screen[data-i="${i}"] [tabindex="-1"]`); if (h) h.focus({preventScroll:true}); }
+}
+
+/* ---------- output ---------- */
+const GW = {love:"love", ok:"fine", off:"doesnt-work"};
+function report(){
+ const L = ["QUIET WISDOM · reader feedback v1",
+  `reads-chinese: ${S.about.reads||"-"} | script: ${S.about.script||"-"}`, ""];
+ LINES.forEach(d => { const e = S.a[d.n]; if (!e) return;
+  const rows = SLOTS.filter(([k])=>e.g[k]).map(([k,label]) => {
+   const t = (e.t[k]||[]).join("; "); return `  ${label}: ${GW[e.g[k]]}${t?` [${t}]`:""}`; });
+  if (!rows.length && !e.note) return;
+  L.push(`#${d.n} ${d.py}`, ...rows); if (e.note) L.push(`  note: ${e.note.trim()}`); L.push("");
+ });
+ L.push("would-send-to-a-friend: " + (S.pick.length ? S.pick.map(n=>"#"+n).join(", ") : "none"));
+ if (S.extra.trim()) L.push("extra: " + S.extra.trim());
+ return L.join("\n");
+}
+const mailURL = () => `mailto:${TO}?subject=${encodeURIComponent("Quiet Wisdom reader feedback")}&body=${encodeURIComponent(report())}`;
+function refreshSend(){ $("#preview").textContent = report(); $("#lenwarn").hidden = mailURL().length < 1900; }
+
+async function copyText(t){
+ try { await navigator.clipboard.writeText(t); return true; } catch(e) {}
+ const ta = document.createElement("textarea"); ta.value = t; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select();
+ let ok = false; try { ok = document.execCommand("copy"); } catch(e) {} ta.remove(); return ok;
+}
+
+/* ---------- boot ---------- */
+$("#main").innerHTML = intro() + LINES.map((d,i)=>lineScreen(d,i+1)).join("") + finale(TOTAL-1);
+$$(".screen[data-n]").forEach(paintLine);
+$$('[data-pick]').forEach(b => b.setAttribute("aria-pressed", S.pick.includes(+b.dataset.pick)));
+$("#extra").value = S.extra || "";
+
+$("#main").addEventListener("click", async ev => {
+ const b = ev.target.closest("button"); if (!b) return;
+ const screen = b.closest(".screen"), i = +screen.dataset.i;
+ if (b.hasAttribute("data-next")) return show(Math.min(i+1,TOTAL-1));
+ if (b.hasAttribute("data-back")) return show(Math.max(i-1,0));
+ if (b.dataset.grp) { const on = S.about[b.dataset.grp]!==b.dataset.v;
+  on ? S.about[b.dataset.grp]=b.dataset.v : delete S.about[b.dataset.grp];
+  $$(`[data-grp="${b.dataset.grp}"]`).forEach(x=>x.setAttribute("aria-pressed", S.about[b.dataset.grp]===x.dataset.v)); return save(); }
+ if (b.dataset.pick) { const n = +b.dataset.pick, j = S.pick.indexOf(n); j<0 ? S.pick.push(n) : S.pick.splice(j,1);
+  b.setAttribute("aria-pressed", j<0); return save(); }
+ if (b.id==="mail") { const t = report(); await copyText(t); $("#form").style.display="none"; $("#done").classList.add("on"); scrollTo({top:0,behavior:"instant"});
+  location.href = mailURL(); return; }
+ if (b.id==="copy") { const ok = await copyText(report()); b.textContent = ok ? "Copied — paste into an email to "+TO : "Couldn’t copy — open “See exactly what will be sent”"; return; }
+ if (screen.dataset.n) {
+  const e = ans(screen.dataset.n), k = b.closest(".slot")?.dataset.k;
+  if (b.classList.contains("g")) {
+   if (e.g[k]===b.dataset.g) { delete e.g[k]; delete e.t[k]; }
+   else { if (e.g[k] && (e.g[k]==="love")!==(b.dataset.g==="love")) delete e.t[k]; e.g[k] = b.dataset.g; }
+  } else if (b.classList.contains("chip")) {
+   const list = e.t[k] || (e.t[k]=[]), c = b.textContent, j = list.indexOf(c); j<0 ? list.push(c) : list.splice(j,1); }
+  save(); paintLine(screen);
+ }
+});
+$("#main").addEventListener("input", ev => {
+ if (ev.target.id==="extra") { S.extra = ev.target.value; return save(); }
+ const screen = ev.target.closest(".screen[data-n]"); if (screen) { ans(screen.dataset.n).note = ev.target.value; save(); }
+});
+show(Math.min(S.step||0,TOTAL-1), false);
+</script>
+</body>
+</html>
